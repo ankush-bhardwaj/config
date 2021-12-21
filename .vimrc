@@ -20,12 +20,13 @@ Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'airblade/vim-rooter'
 Plugin 'preservim/nerdtree'
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-commentary'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'peitalin/vim-jsx-typescript'
 call vundle#end()
 
 " switch buffers
@@ -38,6 +39,7 @@ nmap <silent> gd <Plug>(coc-definition)
 
 " supertab navigate top to bottom completion menu
 let g:SuperTabDefaultCompletionType="<c-n>"
+let g:python_recommended_style = 0
 
 " terminal config
 set background=dark
@@ -55,10 +57,9 @@ let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark="dark"
 let g:gruvbox_italicize_strings=1
 let g:gruvbox_improved_warnings=1
-colorscheme ghdark
+"colorscheme ghdark
 colorscheme gruvbox
-" colorscheme monokai
-" colorscheme ghdark
+"colorscheme monokai
 "set background=dark
 
 " NERDTree
@@ -76,6 +77,7 @@ let g:comfortable_motion_air_drag=5.0
 
 syntax on
 set tabstop=2
+"set softtabstop=2
 set shiftwidth=2
 set expandtab
 set ai
@@ -88,8 +90,8 @@ set backspace=indent,eol,start
 
 "highlight Comment ctermfg=LightBlue
 set nocompatible
-filetype indent on
-set autoindent
+"filetype indent on
+"set autoindent
 set guioptions+=a
 "autocmd vimenter * NERDTree.
 map <C-n> :NERDTreeToggle<CR>
@@ -104,8 +106,10 @@ if executable(s:clip)
 endif
 
 " vim airline
-" let g:airline#extensions#tabline#enabled=1
-" let g:airline#extensions#tabline#formatter='unique_tail_improved'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail_improved'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
 
 set noshowmode
 set noshowcmd
@@ -231,6 +235,9 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
+
+" Disable COC for python
+autocmd FileType python let b:coc_suggest_disable = 1
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
